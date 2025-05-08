@@ -1,4 +1,5 @@
-﻿using CodeBlogFitness.BL.Model;
+﻿using CodeBlogFitness.BL.Controller;
+using CodeBlogFitness.BL.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,8 +11,11 @@ namespace CodeBlogFintess.CMD.Controller
     /// <summary>
     /// Контроллер пользователя.
     /// </summary>
-    public class UserController
+    public class UserController : ControllerBase
     {
+
+        private const string FILE_NAME = "users.dat";
+
         /// <summary>
         /// Пользователь приложения.
         /// </summary>
@@ -65,31 +69,15 @@ namespace CodeBlogFintess.CMD.Controller
         /// <returns>Список пользователей приложения.</returns>
         private List<User> GetUsersData()
         {
-            var formatter = new BinaryFormatter();
-            using (var file = new FileStream("users.dat", FileMode.OpenOrCreate))
-            {
-
-                if (file.Length > 0 && formatter.Deserialize(file) is List<User> users)
-                {
-                    return users;
-                }
-                else
-                {
-                    return new List<User>();
-                }
-            }
+            return Load<List<User>>(FILE_NAME) ?? new List<User>();
         }
 
         /// <summary>
         /// Сохранить данные пользователя.
         /// </summary>
-        public void Save()
+        private void Save()
         {
-            var formatter = new BinaryFormatter();
-                using(var file = new FileStream("users.dat", FileMode.OpenOrCreate))
-                {
-                    formatter.Serialize(file, Users);
-                }
+            Save(FILE_NAME, Users);
         }
 
       

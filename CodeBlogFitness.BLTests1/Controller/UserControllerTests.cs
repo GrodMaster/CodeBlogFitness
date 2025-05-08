@@ -14,18 +14,19 @@ namespace CodeBlogFintess.CMD.Controller.Tests
         [TestMethod()]
         public void SetNewUserDataTest()
         {
+            //Arrange
             var userName = Guid.NewGuid().ToString();
             var birthDate = DateTime.Now.AddYears(-18);
             var weight = 80;
             var height = 180;
             var gender = "man";
-            
             var controller = new UserController(userName);
+            
+            //Act
             controller.SetNewUserData(gender, birthDate, weight, height);
-
             var controller2 = new UserController(userName);
 
-
+            //Assert
             Assert.AreEqual(userName, controller2.CurrentUser.Name);
             Assert.AreEqual(birthDate, controller2.CurrentUser.BirthDate);
             Assert.AreEqual(weight, controller2.CurrentUser.Weight);
