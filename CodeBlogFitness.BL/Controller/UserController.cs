@@ -28,7 +28,6 @@ namespace CodeBlogFintess.CMD.Controller
         /// Создание нового контроллера.
         /// </summary>
         /// <param name="user">Пользователь.</param>
-        /// <exception cref="ArgumentNullException"></exception>
         public UserController(string userName)
         {
             if (string.IsNullOrWhiteSpace(userName))
@@ -64,13 +63,13 @@ namespace CodeBlogFintess.CMD.Controller
         /// Получить сохраненный список пользователей.
         /// </summary>
         /// <returns>Список пользователей приложения.</returns>
-        /// <exception cref="FileLoadException"></exception>
         private List<User> GetUsersData()
         {
             var formatter = new BinaryFormatter();
             using (var file = new FileStream("users.dat", FileMode.OpenOrCreate))
             {
-                if (formatter.Deserialize(file) is List<User> users)
+
+                if (file.Length > 0 && formatter.Deserialize(file) is List<User> users)
                 {
                     return users;
                 }
@@ -84,8 +83,7 @@ namespace CodeBlogFintess.CMD.Controller
         /// <summary>
         /// Сохранить данные пользователя.
         /// </summary>
-        /// <exception cref="Exception"></exception>
-        private void Save()
+        public void Save()
         {
             var formatter = new BinaryFormatter();
                 using(var file = new FileStream("users.dat", FileMode.OpenOrCreate))
