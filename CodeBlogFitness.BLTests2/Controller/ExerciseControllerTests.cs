@@ -25,7 +25,7 @@ namespace CodeBlogFitness.BL.Controller.Tests
             var activity = new Activity(activityName, rnd.Next(10, 200));
 
             //Act
-            exerciseController.Add(activity, DateTime.Now, DateTime.Now.AddHours(1));
+            exerciseController.Add(activity, DateTime.Now.AddHours(-2), DateTime.Now.AddHours(-1));
 
             //Assert
             Assert.AreEqual(activity.Name, exerciseController.Activities.Last().Name);

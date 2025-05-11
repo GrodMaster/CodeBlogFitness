@@ -5,30 +5,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CodeBlogFintess.CMD.Controller;
 using CodeBlogFitness.BL.Model;
+using CodeBlogFintess.CMD.Controller;
 
 namespace CodeBlogFitness.BL.Controller.Tests
 {
     [TestClass()]
-    public class EatingContrellerTests
+    public class EatingControllerTests
     {
         [TestMethod()]
         public void AddTest()
         {
-            //Arrange
+            // Arrange
             var userName = Guid.NewGuid().ToString();
             var foodName = Guid.NewGuid().ToString();
             var rnd = new Random();
             var userController = new UserController(userName);
-            var eatingController = new EatingContreller(userController.CurrentUser);
-            var food = new Food(foodName, rnd.Next(50, 500), rnd.Next(50, 500), rnd.Next(50, 500), rnd.Next(50, 500) );
+            var eatingConroller = new EatingController(userController.CurrentUser);
+            var food = new Food(foodName, rnd.Next(50, 500), rnd.Next(50, 500), rnd.Next(50, 500), rnd.Next(50, 500));
 
-            //Act
-            eatingController.Add(food, 100);
+            // Act
+            eatingConroller.Add(food, 100);
 
-            //Assert
-            Assert.AreEqual(food.Name, eatingController.Eating.Foods.Last().Key.Name);
+            // Assert
+            Assert.AreEqual(food.Name, eatingConroller.Eating.Foods.First().Key.Name);
         }
     }
 }

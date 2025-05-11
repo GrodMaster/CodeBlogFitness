@@ -13,9 +13,6 @@ namespace CodeBlogFintess.CMD.Controller
     /// </summary>
     public class UserController : ControllerBase
     {
-
-        private const string FILE_NAME = "users.dat";
-
         /// <summary>
         /// Пользователь приложения.
         /// </summary>
@@ -48,20 +45,35 @@ namespace CodeBlogFintess.CMD.Controller
                 CurrentUser = new User(userName);
                 Users.Add(CurrentUser);
                 IsNewUser = true;
-                Save();
             }
         }
 
-        public void SetNewUserData(string genderName, DateTime birthDate, double wight = 1, double height = 1)
-        {
-            // TODO: проверка
-            CurrentUser.Gender = new Gender(genderName);
-            CurrentUser.BirthDate = birthDate;
-            CurrentUser.Weight = wight;
-            CurrentUser.Height = height;
+        //public void SetNewUserData(string genderName, DateTime birthDate, double wight = 1, double height = 1)
+        //{
+        //    if (string.IsNullOrWhiteSpace(genderName))
+        //    {
+        //        throw new ArgumentNullException("Пол не может быть пустым.", nameof(genderName));
+        //    }
+        //    if (birthDate <= DateTime.Parse("01.01.1900") || birthDate >= DateTime.Now)
+        //    {
+        //        throw new ArgumentNullException("Некорректная дата.", nameof(birthDate));
+        //    }
+        //    if (wight <= 0)
+        //    {
+        //        throw new ArgumentNullException("Некорректное число.", nameof(wight));
+        //    }
+        //    if (height <= 0)
+        //    {
+        //        throw new ArgumentNullException("Неккоредтное число.", nameof(height));
+        //    }
 
-            Save();
-        }
+        //    CurrentUser.Gender = new Gender(genderName);
+        //    CurrentUser.BirthDate = birthDate;
+        //    CurrentUser.Weight = wight;
+        //    CurrentUser.Height = height;
+
+        //    Save();
+        //}
 
         /// <summary>
         /// Получить сохраненный список пользователей.
@@ -69,17 +81,26 @@ namespace CodeBlogFintess.CMD.Controller
         /// <returns>Список пользователей приложения.</returns>
         private List<User> GetUsersData()
         {
-            return Load<List<User>>(FILE_NAME) ?? new List<User>();
+            return Load<User>() ?? new List<User>();
         }
 
         /// <summary>
         /// Сохранить данные пользователя.
         /// </summary>
-        private void Save()
+        public void SetNewUserData(string genderName, DateTime birthDate, double weight, double height)
         {
-            Save(FILE_NAME, Users);
+            CurrentUser.Gender = new Gender(genderName);
+            CurrentUser.BirthDate = birthDate;
+            CurrentUser.Weight = weight;
+            CurrentUser.Height = height;
+            Save();
+
         }
 
+        public void Save()
+        {
+            Save(Users);
+        }
       
     }
 }

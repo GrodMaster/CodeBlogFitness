@@ -11,7 +11,6 @@ namespace CodeBlogFintess.CMD
     {
         static void Main(string[] args)
         {
-
             var culture = CultureInfo.CreateSpecificCulture("ru-ru");
             var resurceMeneger = new ResourceManager("CodeBlogFintess.CMD.Languages.Messages", typeof(Program).Assembly);
             Console.WriteLine(resurceMeneger.GetString("Hello", culture));
@@ -20,7 +19,7 @@ namespace CodeBlogFintess.CMD
             var name = Console.ReadLine();
 
             var userController = new UserController(name);
-            var eatingController = new EatingContreller(userController.CurrentUser);
+            var eatingController = new EatingController(userController.CurrentUser);
             var exercicseController = new ExerciseController(userController.CurrentUser);
 
             if (userController.IsNewUser)
